@@ -1,0 +1,80 @@
+approval_policy = "never"
+model_reasoning_summary = "detailed"
+network_access = true
+sandbox_mode = "danger-full-access"
+disable_response_storage = true
+model = "gpt-5.2"
+model_provider = "cch"
+model_reasoning_effort = "xhigh"
+personality = "pragmatic"
+web_search = "live"
+
+developer_instructions = """
+Your primary identity and common rules are inherited from ~/.codex/AGENTS.md, always active.
+Read ~/.codex/AGENTS.md on startup to learn available commands.
+
+When user inputs /do <task description>:
+1. Read ~/.codex/protocols/do-feature.md, strictly follow the 5-phase orchestration protocol
+2. Enter orchestrator mode: never write code directly, all code changes via spawn developer
+3. Read/write .codex/tasks/ directory for persisting phase outputs
+
+When user inputs /do-csv <csv path>:
+1. Read ~/.codex/protocols/do-csv.md, strictly follow the CSV task list orchestration protocol
+2. Enter orchestrator mode: never write code directly, all code changes via spawn developer
+3. Read/write .codex/tasks/ directory and CSV file for persisting state
+
+When none of the above commands are received, operate normally under common rules.
+"""
+
+[model_providers.cch]
+base_url = "https://cch3.59188888.xyz/v1"
+name = "cch"
+requires_openai_auth = true
+wire_api = "responses"
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+hide_rate_limit_model_nudge = true
+
+[features]
+unified_exec = true
+shell_snapshot = true
+multi_agent = true
+collab = true
+sqlite = true
+
+[agents]
+max_threads = 64
+max_depth = 3
+# max_threads not set; the main agent decides concurrency based on task complexity
+
+[agents.explorer]
+description = "Code analysis expert, read-only. Traces feature implementations, maps architecture layers, understands patterns and dependencies."
+config_file = "agents/explorer.toml"
+
+[agents.architect]
+description = "Senior architect, read-only. Analyzes codebase patterns, makes architecture decisions, produces implementation blueprints."
+config_file = "agents/architect.toml"
+
+[agents.reviewer]
+description = "Code review expert, read-only. Checks bugs, security vulnerabilities, code quality with confidence filtering."
+config_file = "agents/reviewer.toml"
+
+[agents.developer]
+description = "Code implementer, writable. Writes code per blueprint, runs tests."
+config_file = "agents/developer.toml"
+
+[mcp_servers]
+
+[mcp_servers.context7]
+command = "npx"
+args = ["npx", "-y", "@upstash/context7-mcp@latest"]
+
+[mcp_servers.mcp-deepwiki]
+command = "npx"
+args = ["-y", "mcp-deepwiki@latest"]
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest", "--browserUrl=http://127.0.0.1:9222"]
+
