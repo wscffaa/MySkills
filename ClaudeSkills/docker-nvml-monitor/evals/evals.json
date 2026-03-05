@@ -1,0 +1,17 @@
+{
+  "skill_name": "docker-nvml-monitor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我的 A100_22_aliyun 服务器上 feifan 容器一直报 NVML ERROR: Unknown Error,帮我配置自动重启",
+      "expected_output": "在 A100_22_aliyun 服务器上为 feifan 容器创建 NVML 监控脚本,配置 crontab 定时任务,并验证脚本正常工作",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "给 A100_22_aliyun 上的 zhq 容器也加上 GPU 监控,nvidia-smi 报错就重启",
+      "expected_output": "更新现有监控脚本,在 CONTAINERS 数组中添加 zhq,重新部署并测试",
+      "files": []
+    }
+  ]
+}

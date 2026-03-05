@@ -1,0 +1,22 @@
+{
+  "tpl_body_start_regexes": ["^0引言$", "^0引言", "^引言$"],
+  "src_body_start_regexes": ["^0引言$", "^0引言", "^引言$"],
+  "style_overrides": {
+    "h1": "3",
+    "h2": "4",
+    "equation_number": "af3",
+    "fig_caption": "aa",
+    "ref_item": "af7"
+  },
+  "front_matter_overrides": {
+    "doi": "10.xxxx/xxxxx",
+    "cn_title": "中文题名",
+    "cn_authors": "作者1，作者2",
+    "cn_affil": "（单位…）",
+    "cn_abs": "中文摘要…",
+    "cn_kw": "关键词1；关键词2",
+    "class_no": "TMxxx",
+    "en_abs": "English abstract ...",
+    "en_kw": "keyword1, keyword2"
+  }
+}

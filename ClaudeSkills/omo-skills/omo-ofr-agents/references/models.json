@@ -1,0 +1,151 @@
+{
+  "$schema": "OFR Multi-Model Configuration",
+  "description": "omo-ofr-agents 多模型后端配置，针对 SCI 论文产出优化",
+  "note": "请根据实际可用的 API 调整后端和模型名称",
+
+  "default_backend": "claude",
+  "default_model": "claude-sonnet-4-5-20250929",
+
+  "agents": {
+    "ofr-sisyphus": {
+      "backend": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "description": "总编排者 - 需要最强推理能力协调全局",
+      "yolo": true,
+      "reasoning": "high",
+      "free": false,
+      "cost": "high"
+    },
+
+    "ofr-oracle": {
+      "backend": "claude",
+      "model": "claude-opus-4-5-20251101",
+      "description": "架构顾问 - 需要深度技术推理",
+      "yolo": true,
+      "reasoning": "high",
+      "free": false,
+      "cost": "high"
+    },
+
+    "ofr-librarian": {
+      "backend": "claude",
+      "model": "claude-sonnet-4-5-20250929",
+      "description": "文献研究员 - 需要长上下文理解论文",
+      "yolo": true,
+      "context_window": "200k",
+      "free": false,
+      "cost": "medium"
+    },
+
+    "ofr-explore": {
+      "backend": "claude",
+      "model": "claude-sonnet-4-5-20250929",
+      "description": "代码定位专家 - 代码搜索（可替换为其他后端）",
+      "parallel_safe": true,
+      "free": false,
+      "cost": "medium",
+      "alternatives": ["gemini-2.0-flash (免费)", "deepseek-coder (便宜)"]
+    },
+
+    "ofr-codegen": {
+      "backend": "claude",
+      "model": "claude-sonnet-4-5-20250929",
+      "description": "代码生成 - 需要强代码生成能力",
+      "yolo": true,
+      "reasoning": "high",
+      "free": false,
+      "cost": "medium",
+      "alternatives": ["deepseek-coder-v2 (便宜)", "codestral (便宜)"]
+    },
+
+    "ofr-visualization-engineer": {
+      "backend": "gemini",
+      "model": "gemini-2.0-flash",
+      "description": "可视化/Debug - 需要多模态理解能力",
+      "multimodal": true,
+      "free": true,
+      "cost": "free"
+    },
+
+    "ofr-paper-writer": {
+      "backend": "claude",
+      "model": "claude-sonnet-4-5-20250929",
+      "description": "SCI 写作专家 - 需要优秀的学术写作能力",
+      "yolo": true,
+      "context_window": "200k",
+      "free": false,
+      "cost": "medium"
+    },
+
+    "ofr-multimodal-looker": {
+      "backend": "gemini",
+      "model": "gemini-2.0-flash",
+      "description": "多模态分析师 - 读图/架构图理解",
+      "multimodal": true,
+      "parallel_safe": true,
+      "free": true,
+      "cost": "free"
+    },
+
+    "ofr-remote-operator": {
+      "backend": "claude",
+      "model": "claude-sonnet-4-5-20250929",
+      "description": "远程运维 - 需要命令行操作能力",
+      "yolo": true,
+      "free": false,
+      "cost": "medium"
+    }
+  },
+
+  "parallel_groups": {
+    "idea_understanding": {
+      "description": "Idea 阶段可并行的理解任务",
+      "agents": ["ofr-librarian", "ofr-explore", "ofr-multimodal-looker"],
+      "max_concurrent": 3
+    },
+    "exp_monitoring": {
+      "description": "实验阶段可并行的监控任务",
+      "agents": ["ofr-visualization-engineer", "ofr-multimodal-looker"],
+      "max_concurrent": 2
+    }
+  },
+
+  "backend_configs": {
+    "claude": {
+      "cli": "claude",
+      "env": "ANTHROPIC_API_KEY",
+      "features": ["long_context", "reasoning", "tool_use"],
+      "free": false,
+      "pricing": "https://anthropic.com/pricing"
+    },
+    "gemini": {
+      "cli": "gemini",
+      "env": "GOOGLE_API_KEY",
+      "features": ["multimodal", "fast_inference"],
+      "free": true,
+      "note": "Gemini 2.0 Flash 有免费额度",
+      "pricing": "https://ai.google.dev/pricing"
+    },
+    "deepseek": {
+      "cli": "deepseek",
+      "env": "DEEPSEEK_API_KEY",
+      "features": ["code_generation", "reasoning"],
+      "free": false,
+      "note": "价格约为 Claude 的 1/10",
+      "pricing": "https://platform.deepseek.com/pricing"
+    }
+  },
+
+  "cost_optimization": {
+    "budget_mode": {
+      "description": "预算有限时的替代方案",
+      "ofr-explore": "gemini-2.0-flash",
+      "ofr-codegen": "deepseek-coder-v2",
+      "ofr-librarian": "gemini-2.0-flash"
+    },
+    "quality_mode": {
+      "description": "质量优先时保持原配置",
+      "note": "使用 Claude Opus/Sonnet"
+    }
+  }
+}
