@@ -20,3 +20,18 @@ if [ -d "$TEMP_REPO/skills/skill-creator" ]; then
 fi
 
 rm -rf "$TEMP_REPO"
+
+# Update find-skills from GitHub
+FIND_SKILLS_PATH="$HOME/.claude/skills/find-skills"
+VERCEL_REPO="/tmp/vercel-skills-update"
+
+git clone --depth 1 https://github.com/vercel-labs/skills.git "$VERCEL_REPO" 2>/dev/null
+
+if [ -d "$VERCEL_REPO/skills/find-skills" ]; then
+    if ! diff -r "$FIND_SKILLS_PATH" "$VERCEL_REPO/skills/find-skills" > /dev/null 2>&1; then
+        rm -rf "$FIND_SKILLS_PATH"
+        cp -r "$VERCEL_REPO/skills/find-skills" "$FIND_SKILLS_PATH"
+    fi
+fi
+
+rm -rf "$VERCEL_REPO"

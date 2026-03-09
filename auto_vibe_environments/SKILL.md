@@ -69,7 +69,18 @@ Installs the official Anthropic skill-creator for creating and managing Claude s
 **Installation source:**
 - GitHub: https://github.com/anthropics/skills/tree/main/skills/skill-creator
 
-### 4. NPM Auto-Update System
+### 4. Find Skills Installation
+Installs the Vercel Labs find-skills tool for discovering and installing agent skills.
+
+**What gets installed:**
+- Complete find-skills from GitHub
+- Skill discovery and search capabilities
+- Integration with skills.sh ecosystem
+
+**Installation source:**
+- GitHub: https://github.com/vercel-labs/skills/tree/main/skills/find-skills
+
+### 5. NPM Auto-Update System
 Creates scheduled tasks to keep npm packages up to date.
 
 **Default packages:**
@@ -91,7 +102,8 @@ Use AskUserQuestion with the following configuration:
   1. "Agent Reach" - Multi-platform content access (Twitter, YouTube, GitHub, etc.)
   2. "GitHub CLI" - GitHub authentication and repository management
   3. "Skill Creator" - Official Anthropic skill creation and management tool
-  4. "NPM Auto-Updates" - Scheduled package updates with cron jobs (includes skill-creator updates)
+  4. "Find Skills" - Vercel Labs skill discovery and installation tool
+  5. "NPM Auto-Updates" - Scheduled package updates with cron jobs (includes skill-creator and find-skills updates)
 - Set multiSelect: true to allow multiple selections
 - Default: All options selected
 
@@ -127,7 +139,14 @@ When user says "部署开发环境" or "setup my dev environment":
    rm -rf /tmp/skills-repo
    ```
 
-5. **Set up NPM auto-updates**
+5. **Install Find Skills**
+   ```bash
+   git clone https://github.com/vercel-labs/skills.git /tmp/vercel-skills
+   cp -r /tmp/vercel-skills/skills/find-skills ~/.claude/skills/
+   rm -rf /tmp/vercel-skills
+   ```
+
+6. **Set up NPM auto-updates**
    - Create update script at `~/update-npm-packages.sh`
    - Add packages: @anthropic-ai/claude-code, @openai/codex
    - Add skill-creator update check from GitHub
@@ -160,6 +179,12 @@ User: "配置 GitHub" or "setup github cli"
 User: "安装 Skill Creator" or "install skill creator"
 - Clone skills repository
 - Copy skill-creator to ~/.claude/skills/
+- Verify installation
+
+#### Find Skills Only
+User: "安装 Find Skills" or "install find skills"
+- Clone vercel-labs/skills repository
+- Copy find-skills to ~/.claude/skills/
 - Verify installation
 
 #### NPM Auto-Update Only
