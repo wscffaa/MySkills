@@ -12,7 +12,8 @@ MySkills/
 │   ├── docx-template-reformatter/
 │   ├── midscene/
 │   ├── omo-skills/
-│   └── skill-creator/
+│   ├── skill-creator/
+│   └── zotero_control/
 ├── CodexSkills/           # Codex 技能集合
 │   ├── do/
 │   ├── remotion-best-practices/
@@ -106,6 +107,30 @@ Anthropic 官方 Skill 创建工具。
 - 支持技能基准测试和报告生成
 
 **使用场景:** 创建新 skill、优化现有 skill、skill 开发和测试
+
+### zotero_control
+Zotero 文献库直接控制工具，通过 Python 脚本直接调用 Zotero Web API v3，无需安装 MCP Server，零依赖。
+
+**功能:**
+- 搜索文献（关键词、标签、集合、类型过滤）
+- 获取单条文献详情（按 key 或 DOI）
+- 生成格式化引用（APA、Chicago、MLA、IEEE 等 10000+ 样式）
+- 提取 PDF 全文（需 Zotero Desktop 已索引）
+- 文献 CRUD（创建、更新、批量删除）
+- 集合管理（创建、列出、删除、嵌套）
+- 标签管理（添加、删除、列出）
+- API 密钥信息查询
+
+**安装:**
+```bash
+# 复制到 Claude Code skills 目录
+cp -r ClaudeSkills/zotero_control ~/.claude/skills/
+# 配置密钥
+cp ~/.claude/skills/zotero_control/config.example.json ~/.claude/skills/zotero_control/config.json
+# 编辑 config.json 填入你的 API Key 和 User ID
+```
+
+**使用场景:** 文献综述、批量引用生成、文献库整理、学术写作辅助
 
 ## Codex Skills
 
