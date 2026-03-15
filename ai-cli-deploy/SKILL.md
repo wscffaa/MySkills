@@ -20,7 +20,7 @@ bash scripts/deploy_easytier.sh <network-name> <network-secret>
 bash scripts/deploy_mihomo_local.sh
 
 # Configure proxy via KAIFU02 (alternative)
-bash scripts/setup_remote_proxy.sh 10.126.126.5 7890
+bash scripts/setup_remote_proxy.sh PROXY_SERVER_IP 7890
 
 # Install AI CLI tools only
 bash scripts/install_cli_tools.sh
@@ -59,7 +59,7 @@ TUN mode features:
 
 **Alternative: Remote mode via KAIFU02** (requires proxy environment variables):
 ```bash
-bash scripts/setup_remote_proxy.sh 10.126.126.5 7890
+bash scripts/setup_remote_proxy.sh PROXY_SERVER_IP 7890
 ```
 
 Note: TUN mode is superior for intranet scenarios as it handles all TCP/UDP traffic transparently without application-level configuration.
@@ -124,9 +124,9 @@ docker logs -f mihomo
 ```bash
 # Proxy via KAIFU02 (TUN mode enabled on remote)
 # Temporarily disabled - using local mihomo TUN mode
-#export http_proxy=http://10.126.126.5:7890
-#export https_proxy=http://10.126.126.5:7890
-#export no_proxy=localhost,127.0.0.1,10.126.126.0/24
+#export http_proxy=http://PROXY_SERVER_IP:7890
+#export https_proxy=http://PROXY_SERVER_IP:7890
+#export no_proxy=localhost,127.0.0.1,INTERNAL_NETWORK
 ```
 
 ### 6. Configuration Files

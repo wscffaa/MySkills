@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-PROXY_HOST="${1:-10.126.126.5}"
+PROXY_HOST="${1:-PROXY_SERVER_IP}"
 PROXY_PORT="${2:-7890}"
 
 echo "Configuring proxy via $PROXY_HOST:$PROXY_PORT"
@@ -28,7 +28,7 @@ if ! grep -q "export http_proxy=http://$PROXY_HOST:$PROXY_PORT" ~/.bashrc; then
   echo "# Proxy via KAIFU02 (added by intranet-network-deploy)" >> ~/.bashrc
   echo "export http_proxy=http://$PROXY_HOST:$PROXY_PORT" >> ~/.bashrc
   echo "export https_proxy=http://$PROXY_HOST:$PROXY_PORT" >> ~/.bashrc
-  echo "export no_proxy=localhost,127.0.0.1,10.126.126.0/24" >> ~/.bashrc
+  echo "export no_proxy=localhost,127.0.0.1,INTERNAL_NETWORK" >> ~/.bashrc
   echo "✓ Proxy configuration added to ~/.bashrc"
 else
   echo "✓ Proxy configuration already exists in ~/.bashrc"

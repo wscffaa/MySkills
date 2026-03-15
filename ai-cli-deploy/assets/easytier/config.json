@@ -1,11 +1,11 @@
 {
   "network_name": "default-network",
   "network_secret": "default-secret",
-  "ipv4": "10.126.126.3",
+  "ipv4": "NODE_IP",
   "peers": [
     {
       "hostname": "KAIFU02",
-      "ipv4": "10.126.126.5"
+      "ipv4": "PROXY_SERVER_IP"
     }
   ]
 }

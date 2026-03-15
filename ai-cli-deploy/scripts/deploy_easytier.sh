@@ -24,7 +24,7 @@ docker run -d \
   easytier-core \
   --network-name "$NETWORK_NAME" \
   --network-secret "$NETWORK_SECRET" \
-  --ipv4 10.126.126.3
+  --ipv4 NODE_IP
 
 echo "EasyTier deployed successfully"
 echo "Container restart policy: unless-stopped (auto-start on boot)"
